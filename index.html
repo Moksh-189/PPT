@@ -225,16 +225,13 @@
                     </p>
                     <div
                         class="w-full h-80 border-2 border-dashed border-slate-700 rounded-xl flex items-center justify-center bg-black/20 overflow-hidden relative group">
-                        <!-- If image exists, it will show. If not, the placeholder text shows. -->
-                        <img src="img/architecture.png"
+                        <!-- Prioritize SVG for infinite scalability, fallback to PNG -->
+                        <img src="img/architecture.svg"
                             class="h-full w-auto object-contain absolute inset-0 m-auto z-10"
-                            onerror="this.style.display='none'">
-                        <img src="img/model.png"
-                            class="h-full w-auto object-contain absolute inset-0 m-auto z-10 hidden"
-                            onerror="this.style.display='none'">
+                            onerror="this.onerror=null; this.src='img/architecture.png';">
 
-                        <div class="text-slate-600 text-xs uppercase tracking-widest p-4 z-0">
-                            [Place 'architecture.png' in 'img/' folder]<br>
+                        <div class="text-slate-600 text-xs uppercase tracking-widest p-4 z-0 text-center">
+                            [Place 'architecture.svg' or 'architecture.png' in 'img/' folder]<br>
                             Waiting for Diagram...
                         </div>
                     </div>
