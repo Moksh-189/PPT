@@ -130,13 +130,55 @@
                 </p>
             </div>
             <div class="glass p-10 rounded-[2.5rem] border-r-4 border-blue-500/50">
-                <h3 class="text-blue-400 font-bold text-xs uppercase tracking-widest mb-4">Literature Review (Predictive
-                    Focus)</h3>
-                <p class="text-slate-400 leading-relaxed text-justify">
-                    Standard approaches (e.g., Venugopal et al.) use GNNs solely for <strong>prediction</strong>
-                    (next-activity/remaining-time). They treat the process as a passive observer, lacking any
-                    prescriptive capability.
-                </p>
+                <h3 class="text-blue-400 font-bold text-xs uppercase tracking-widest mb-4">Literature Review &
+                    Integration</h3>
+                <div
+                    class="text-slate-400 leading-relaxed text-justify text-sm space-y-4 h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                    <p>The domain of Business Process Intelligence (BPI) has evolved from static reporting to predictive
+                        monitoring. However, the transition to autonomous, prescriptive optimization in multi-system
+                        environments remains a significant research challenge. This project builds upon and integrates
+                        three distinct streams of literature: Object-Centric Process Mining (OCPM), Graph Representation
+                        Learning, and Deep Reinforcement Learning (DRL).</p>
+
+                    <div class="space-y-1">
+                        <strong class="text-slate-200 block">1. Object-Centric Process Mining (The Data
+                            Foundation)</strong>
+                        <p><em class="text-blue-400">Key Work:</em> Object-Centric Process Mining: Dealing with
+                            Divergence and Convergence (W. van der Aalst, 2019).</p>
+                        <p><em class="text-purple-400">Analysis:</em> Van der Aalst demonstrated that traditional
+                            process mining (based on flat event logs like XES) fails in complex environments where a
+                            single event is related to multiple objects (e.g., one Sales Order linked to multiple Items
+                            and Deliveries).</p>
+                    </div>
+
+                    <div class="space-y-1">
+                        <strong class="text-slate-200 block">2. Deep Reinforcement Learning in BPM (The Optimization
+                            Engine)</strong>
+                        <p><em class="text-blue-400">Key Work:</em> Deep Reinforcement Learning for Business Process
+                            Optimization (E. Rama-Maneiro et al., 2021).</p>
+                        <p><em class="text-purple-400">Analysis:</em> This research established the viability of using
+                            DRL agents (specifically DQN and PPO) to optimize resource allocation dynamically,
+                            outperforming static heuristics like FIFO (First-In-First-Out).</p>
+                    </div>
+
+                    <div class="space-y-1">
+                        <strong class="text-slate-200 block">3. Graph Neural Networks for Process State (The
+                            Encoder)</strong>
+                        <p><em class="text-blue-400">Key Work:</em> Process Prediction with Graph Neural Networks
+                            (Venugopal et al., 2023).</p>
+                        <p><em class="text-purple-400">Analysis:</em> Recent studies have applied Graph Neural Networks
+                            (GNNs) to encode process states, proving that treating a workflow as a graph yields higher
+                            accuracy for predictive monitoring (e.g., predicting remaining time).</p>
+                    </div>
+
+                    <div class="space-y-1">
+                        <strong class="text-slate-200 block">4. Data-Driven Digital Twins (The Environment)</strong>
+                        <p><em class="text-blue-400">Key Work:</em> Discovering Data-Driven Simulation Models (M.
+                            Camargo et al., 2020).</p>
+                        <p><em class="text-purple-400">Analysis:</em> Camargo’s work validates the use of discrete-event
+                            simulation (DES) to create "Digital Twins" automatically extracted from event logs.</p>
+                    </div>
+                </div>
             </div>
             <div class="glass p-10 rounded-[2.5rem] border-r-4 border-purple-500/50">
                 <h3 class="text-purple-400 font-bold text-xs uppercase tracking-widest mb-4">Research Gap
