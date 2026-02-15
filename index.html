@@ -66,7 +66,7 @@
     </style>
 </head>
 
-<body onload="startTimer()">
+<body>
 
     <div id="timerContainer"
         class="fixed bottom-10 right-10 px-8 py-4 rounded-3xl flex items-center gap-4 transition-all">
@@ -251,27 +251,64 @@
     </footer>
 
     <script>
-        // TIMER LOGIC
+        // TIMER LOGIC (Interactive)
         let sec = 0;
         let timer = null;
+        let isRunning = false;
+
+        const container = document.getElementById('timerContainer');
+        const display = document.getElementById('displayTime');
+        const icon = document.getElementById('timerIcon');
+
+        // Toggle Start/Pause on Click
+        container.addEventListener('click', () => {
+            if (isRunning) {
+                clearInterval(timer);
+                isRunning = false;
+                container.style.opacity = "0.7"; // Dim when paused
+            } else {
+                startTimer();
+                isRunning = true;
+                container.style.opacity = "1";
+            }
+        });
+
+        // Reset on Double Click
+        container.addEventListener('dblclick', () => {
+            clearInterval(timer);
+            isRunning = false;
+            sec = 0;
+            display.innerText = "00:00";
+            container.classList.remove('timer-warning', 'timer-stop');
+            container.style.opacity = "1";
+            icon.className = "fas fa-hourglass-start text-blue-600 text-2xl";
+        });
+
         function startTimer() {
             timer = setInterval(() => {
                 sec++;
                 let m = Math.floor(sec / 60);
                 let s = sec % 60;
-                document.getElementById('displayTime').innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+                display.innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
 
                 if (sec >= 480 && sec < 600) { // 8-10 Mins Warning
-                    document.getElementById('timerContainer').classList.add('timer-warning');
-                    document.getElementById('timerIcon').classList.replace('fa-hourglass-start', 'fa-hourglass-half');
+                    if (!container.classList.contains('timer-warning')) {
+                        container.classList.add('timer-warning');
+                        icon.className = "fas fa-hourglass-half text-red-600 text-2xl";
+                    }
                 } else if (sec >= 600) { // 10 Mins Stop
                     clearInterval(timer);
-                    document.getElementById('timerContainer').classList.replace('timer-warning', 'timer-stop');
-                    document.getElementById('displayTime').innerText = "10:00";
-                    document.getElementById('timerIcon').classList.replace('fa-hourglass-half', 'fa-hourglass-end');
+                    isRunning = false;
+                    container.classList.replace('timer-warning', 'timer-stop');
+                    display.innerText = "10:00";
+                    icon.className = "fas fa-hourglass-end text-white text-2xl";
                 }
             }, 1000);
         }
+
+        // Add cursor pointer to indicate interactivity
+        container.style.cursor = "pointer";
+        container.title = "Click to Start/Pause, Double-click to Reset";
 
         // RESULTS CHART (Real Data)
         const ctx = document.getElementById('resultsChart').getContext('2d');
