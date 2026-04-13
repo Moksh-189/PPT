@@ -106,7 +106,7 @@
                     class="gradient-text uppercase">AI-Based Business Process Intelligence</span></h1>
             <p
                 class="text-slate-400 max-w-2xl mx-auto italic text-lg leading-relaxed border-l-2 border-blue-500/30 pl-6 text-left">
-                "Can we combine Graph Neural Networks (GAT+GLU) and Reinforcement Learning (PPO) to shift Process Mining
+                "Can we combine <strong>Heterogeneous Graph Neural Networks</strong>, <strong>Temporal Graph Networks</strong>, and <strong>Multi-Agent Reinforcement Learning</strong> to shift Process Mining
                 from purely <strong>predictive</strong> diagnostics to <strong>autonomous prescriptive</strong>
                 optimization?"
             </p>
@@ -205,9 +205,10 @@
                         <p class="text-slate-300 text-lg font-bold mb-2">BPI Challenge 2019 (P2P) + Multi-Source Logic
                         </p>
                         <ul class="text-slate-500 text-sm space-y-1 list-disc list-inside">
-                            <li><strong>Core:</strong> Real-world Purchase-to-Pay Event Log (600k+ events).</li>
-                            <li><strong>Enrichment 1:</strong> 131k+ Synthetic Jira Tickets (Task Tracking).</li>
+                            <li><strong>Core:</strong> Real-world SAP Purchase-to-Pay Event Log (4.6M events, 728 MB XES).</li>
+                            <li><strong>Enrichment 1:</strong> 131k+ Synthetic Jira Tickets (Task Tracking across 5 domains).</li>
                             <li><strong>Enrichment 2:</strong> Synthetic Microsoft Teams Logs (Sentiment Analysis).</li>
+                            <li><strong>Graph:</strong> 42 Activity Nodes (8D) + 628 Resource Nodes (6D) + 2 edge types.</li>
                         </ul>
                     </div>
                 </div>
@@ -216,16 +217,16 @@
                 <div class="glass p-8 rounded-3xl flex flex-col items-center text-center">
                     <i class="fas fa-microchip text-purple-500 text-3xl mb-4"></i>
                     <h3 class="font-bold mb-4 uppercase text-xs tracking-widest">Model Architecture: <span
-                            class="text-purple-400">GAT + GLU + PPO</span></h3>
+                            class="text-purple-400">HeteroGNN + TGN + MARL</span></h3>
                     <p class="text-slate-400 max-w-3xl mb-6">
-                        A hybrid approach using <strong>Graph Attention Networks (GAT)</strong> with <strong>Gated
-                            Linear Units (GLU)</strong> to extract spatial dependencies from the process topology,
-                        feeding state embeddings into a <strong>PPO Reinforcement Learning Agent</strong> for autonomous
-                        decision making.
+                        A multi-stage pipeline using <strong>Heterogeneous Graph Neural Networks (HeteroGNN)</strong> with independent
+                        projection matrices per node type and <strong>HeteroConv</strong> layers (GATConv per edge type), augmented by <strong>Temporal Graph Networks (TGN)</strong>
+                        with per-node GRU memory for time-aware embeddings. These topology-aware representations feed into both a
+                        <strong>Single-Agent PPO</strong> and a cooperative <strong>Multi-Agent RL (MARL)</strong> system
+                        with domain-specialized Jira and SAP agents trained via iterated self-play.
                     </p>
                     <div
                         class="w-full h-80 border-2 border-dashed border-slate-700 rounded-xl flex items-center justify-center bg-black/20 overflow-hidden relative group">
-                        <!-- Prioritize SVG for infinite scalability, fallback to PNG -->
                         <img src="img/architecture.svg"
                             class="h-full w-auto object-contain absolute inset-0 m-auto z-10"
                             onerror="this.onerror=null; this.src='img/architecture.png';">
@@ -253,23 +254,37 @@
                     class="text-blue-500">Analysis</span></h2>
             <div class="grid md:grid-cols-2 gap-16 items-center">
                 <div class="h-80"><canvas id="resultsChart"></canvas></div>
-                <div class="space-y-6">
+                <div class="space-y-4">
                     <div
-                        class="p-6 rounded-2xl bg-white/5 flex justify-between items-center border border-white/10 shadow-inner">
-                        <span class="text-slate-400 font-bold uppercase text-xs tracking-widest">Reward Lift (vs
-                            Random)</span>
-                        <span class="text-blue-400 font-mono font-black text-3xl">+796%</span>
+                        class="p-5 rounded-2xl bg-white/5 flex justify-between items-center border border-white/10 shadow-inner">
+                        <span class="text-slate-400 font-bold uppercase text-xs tracking-widest">vs Random</span>
+                        <span class="text-blue-400 font-mono font-black text-3xl">+789%</span>
                     </div>
                     <div
-                        class="p-6 rounded-2xl bg-white/5 flex justify-between items-center border border-white/10 shadow-inner">
+                        class="p-5 rounded-2xl bg-white/5 flex justify-between items-center border border-white/10 shadow-inner">
+                        <span class="text-slate-400 font-bold uppercase text-xs tracking-widest">vs FIFO</span>
+                        <span class="text-green-400 font-mono font-black text-3xl">+132%</span>
+                    </div>
+                    <div
+                        class="p-5 rounded-2xl bg-white/5 flex justify-between items-center border border-white/10 shadow-inner">
                         <span class="text-slate-400 font-bold uppercase text-xs tracking-widest">Bottleneck MAE</span>
-                        <span class="text-purple-400 font-mono font-black text-3xl">0.078</span>
+                        <span class="text-purple-400 font-mono font-black text-3xl">0.037</span>
+                    </div>
+                    <div
+                        class="p-5 rounded-2xl bg-white/5 flex justify-between items-center border border-white/10 shadow-inner">
+                        <span class="text-slate-400 font-bold uppercase text-xs tracking-widest">GNN Accuracy</span>
+                        <span class="text-cyan-400 font-mono font-black text-3xl">96.3%</span>
+                    </div>
+                    <div
+                        class="p-5 rounded-2xl bg-white/5 flex justify-between items-center border border-white/10 shadow-inner">
+                        <span class="text-slate-400 font-bold uppercase text-xs tracking-widest">MARL Combined Value</span>
+                        <span class="text-pink-400 font-mono font-black text-3xl">$1.55M</span>
                     </div>
                     <p class="text-slate-500 text-sm italic text-justify leading-relaxed">
-                        The <strong>RL Agent (PPO)</strong> achieved a massive <strong>+796% improvement</strong> in
-                        accumulated reward compared to the standard baseline. The <strong>GNN (GAT+GLU)</strong>
-                        demonstrated high fidelity in state estimation with a Mean Absolute Error of just
-                        <strong>0.078</strong>.
+                        The <strong>PPO Agent</strong> achieved <strong>+788.9%</strong> reward lift over random and
+                        <strong>+132.4%</strong> over FIFO heuristics (50-episode benchmark). The <strong>HeteroGNN</strong>
+                        bottleneck predictor reached <strong>96.27% accuracy</strong> (MAE: 0.037, r = 0.9575). The <strong>MARL</strong>
+                        cooperative architecture processed <strong>$1.55M</strong> in business value — 68% more than single-agent.
                     </p>
                 </div>
             </div>
@@ -334,18 +349,18 @@
         // Start timer immediately
         startTimer();
 
-        // RESULTS CHART (Real Data)
+        // RESULTS CHART (Updated with latest benchmark data)
         const ctx = document.getElementById('resultsChart').getContext('2d');
         new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Baseline (Random)', 'AI Agent (PPO)'],
+                labels: ['Random', 'FIFO', 'Greedy', 'PPO (Ours)', 'MARL (Ours)'],
                 datasets: [{
-                    label: 'Accumulated Reward',
-                    data: [155, 1393],
-                    backgroundColor: ['#334155', '#3b82f6'],
-                    borderRadius: 15,
-                    barThickness: 50
+                    label: 'Avg Episode Reward',
+                    data: [156, 597, 1379, 1387, 1550],
+                    backgroundColor: ['#334155', '#64748b', '#f59e0b', '#3b82f6', '#ec4899'],
+                    borderRadius: 12,
+                    barThickness: 40
                 }]
             },
             options: {
@@ -354,7 +369,7 @@
                 plugins: { legend: { display: false } },
                 scales: {
                     y: { beginAtZero: true, grid: { color: '#ffffff05' }, ticks: { color: '#475569' } },
-                    x: { grid: { display: false }, ticks: { color: '#475569' } }
+                    x: { grid: { display: false }, ticks: { color: '#475569', font: { size: 10 } } }
                 }
             }
         });
